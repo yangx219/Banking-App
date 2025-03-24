@@ -48,6 +48,9 @@ public class AccountServiceImpl implements AccountService {
                 .findById(id)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
+        if (account.getBalance() - amount < 0) {
+            throw new RuntimeException("Insufficient balance");
+        }
         double total = account.getBalance() - amount;
         account.setBalance(total);
         Account savedAccount =  accountRepository.save(account);
