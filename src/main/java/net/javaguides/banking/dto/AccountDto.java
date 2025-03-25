@@ -2,9 +2,8 @@ package net.javaguides.banking.dto;
 
 
 
-import lombok.AllArgsConstructor;
+/*import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Data
@@ -17,4 +16,12 @@ public class AccountDto {
     private double balance;
 
 
+}*/
+
+
+import java.math.BigDecimal;
+
+public record AccountDto(Long id, String accountHolderName, double balance) {
 }
+
+

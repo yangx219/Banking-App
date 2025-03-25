@@ -69,4 +69,14 @@ public class AccountServiceImpl implements AccountService {
                 ).collect(Collectors.toList());
 
     }
+
+    @Override
+    public void deleteAccount(Long id) {
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        accountRepository.deleteById(id);
+
+    }
 }
