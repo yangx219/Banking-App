@@ -2,6 +2,7 @@ package net.javaguides.banking.service.impl;
 
 import net.javaguides.banking.dto.AccountDto;
 import net.javaguides.banking.entity.Account;
+import net.javaguides.banking.exception.AccountException;
 import net.javaguides.banking.mapper.AccountMapper;
 import net.javaguides.banking.repository.AccountRepository;
 import net.javaguides.banking.service.AccountService;
@@ -28,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = accountRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new AccountException("Account not found"));
         return AccountMapper.mapToAccountDto(account);
     }
 
@@ -36,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto deposit(Long id, Double amount) {
         Account account = accountRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new AccountException("Account not found"));
 
         double total = account.getBalance() + amount;
         account.setBalance(total);
@@ -49,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto withdraw(Long id, Double amount) {
         Account account = accountRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new AccountException("Account not found"));
 
         if (account.getBalance() - amount < 0) {
             throw new RuntimeException("Insufficient balance");
@@ -74,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
     public void deleteAccount(Long id) {
         Account account = accountRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new AccountException("Account not found"));
 
         accountRepository.deleteById(id);
 
